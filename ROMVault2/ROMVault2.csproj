@@ -1,0 +1,315 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{437E12AB-46F3-4A75-A3D5-6C524B5A79B5}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ROMVault2</RootNamespace>
+    <AssemblyName>ROMVault22</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Stage\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;UNMANAGED;COMPRESS;LZMA_STREAM;DOTNET20</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Stage\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\..\Stage\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;UNMANAGED;COMPRESS;LZMA_STREAM;DOTNET20</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>..\..\Stage2\ROMVault2.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>..\..\Stage\</OutputPath>
+    <DefineConstants>TRACE;UNMANAGED;COMPRESS;LZMA_STREAM;DOTNET20</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\ROMVault2.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>chip.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Papilio_AutoDetectStella.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DatMaker.cs" />
+    <Compile Include="Papilio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Report.cs" />
+    <Compile Include="SupportedFiles\CHD\CHD.cs" />
+    <Compile Include="DatReaders\DatDOSReader.cs" />
+    <Compile Include="FindFixes.cs" />
+    <Compile Include="FixFileCopy.cs" />
+    <Compile Include="FixFiles.cs" />
+    <Compile Include="FrmProgressWindowFix.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmProgressWindowFix.Designer.cs">
+      <DependentUpon>FrmProgressWindowFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RvDB\FileStatus.cs" />
+    <Compile Include="RvDB\RvBase.cs" />
+    <Compile Include="RvDB\RvDat.cs" />
+    <Compile Include="RvDB\RvDir.cs" />
+    <Compile Include="RvDB\RvFile.cs" />
+    <Compile Include="RvDB\RvGame.cs" />
+    <Compile Include="rvTreeRow.cs" />
+    <Compile Include="rvImages.cs" />
+    <Compile Include="SupportedFiles\Files\UnCompFiles.cs" />
+    <Compile Include="SupportedFiles\ZipEnums.cs" />
+    <Compile Include="Utils\ArrByte.cs" />
+    <Compile Include="BackGroundWorkerInterface.cs" />
+    <Compile Include="DatReaders\DatCmpReader.cs" />
+    <Compile Include="DatReaders\DatMessXMLReader.cs" />
+    <Compile Include="DatReaders\DatReader.cs" />
+    <Compile Include="DatReaders\DatXMLReader.cs" />
+    <Compile Include="DatUpdate.cs" />
+    <Compile Include="FileScanning.cs" />
+    <Compile Include="FrmHelpAbout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmHelpAbout.Designer.cs">
+      <DependentUpon>FrmHelpAbout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmKey.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmKey.Designer.cs">
+      <DependentUpon>FrmKey.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmProgressWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmProgressWindow.Designer.cs">
+      <DependentUpon>FrmProgressWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmSetDir.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSetDir.Designer.cs">
+      <DependentUpon>FrmSetDir.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSettings.Designer.cs">
+      <DependentUpon>FrmSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmShowError.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmShowError.Designer.cs">
+      <DependentUpon>FrmShowError.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmSplashScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSplashScreen.Designer.cs">
+      <DependentUpon>FrmSplashScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReportError.cs" />
+    <Compile Include="rvImages1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rvImages1.resx</DependentUpon>
+    </Compile>
+    <Compile Include="IO\RVIO.cs" />
+    <Compile Include="rvTree.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="rvTree.Designer.cs">
+      <DependentUpon>rvTree.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.cs" />
+    <Compile Include="RvDB\DB.cs" />
+    <Compile Include="FrmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMain.Designer.cs">
+      <DependentUpon>FrmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RepairStatus.cs" />
+    <Compile Include="DBHelper.cs" />
+    <Compile Include="Utils\DBTypeGet.cs" />
+    <Compile Include="Utils\RelativePath.cs" />
+    <Compile Include="Utils\ULong.cs" />
+    <Compile Include="Utils\VarFix.cs" />
+    <Compile Include="IO\Win32Native.cs" />
+    <Compile Include="SupportedFiles\Zip\zipFile.cs" />
+    <Compile Include="SupportedFiles\Zip\ZLib\Crc32.cs" />
+    <Compile Include="SupportedFiles\Zip\ZLib\Deflate.cs" />
+    <Compile Include="SupportedFiles\Zip\ZLib\DeflateStream.cs" />
+    <Compile Include="SupportedFiles\Zip\ZLib\GZipStream.cs" />
+    <Compile Include="SupportedFiles\Zip\ZLib\Inflate.cs" />
+    <Compile Include="SupportedFiles\Zip\ZLib\InfTree.cs" />
+    <Compile Include="SupportedFiles\Zip\ZLib\Tree.cs" />
+    <Compile Include="SupportedFiles\Zip\ZLib\Zlib.cs" />
+    <Compile Include="SupportedFiles\Zip\ZLib\ZlibBaseStream.cs" />
+    <Compile Include="SupportedFiles\Zip\ZLib\ZlibCodec.cs" />
+    <Compile Include="SupportedFiles\Zip\ZLib\ZlibConstants.cs" />
+    <Compile Include="SupportedFiles\Zip\ZLib\ZlibStream.cs" />
+    <EmbeddedResource Include="FrmHelpAbout.resx">
+      <DependentUpon>FrmHelpAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmKey.resx">
+      <DependentUpon>FrmKey.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMain.resx">
+      <DependentUpon>FrmMain.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmProgressWindow.resx">
+      <DependentUpon>FrmProgressWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmProgressWindowFix.resx">
+      <DependentUpon>FrmProgressWindowFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSettings.resx">
+      <DependentUpon>FrmSettings.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmShowError.resx">
+      <DependentUpon>FrmShowError.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSplashScreen.resx">
+      <DependentUpon>FrmSplashScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="rvImages1.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>rvImages1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="rvTree.resx">
+      <DependentUpon>rvTree.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="chdman.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="chip.ico" />
+    <None Include="Stage\images\default\papilio_tv-static.png" />
+    <None Include="Stage\images\default\papilio_default_marquee.png" />
+    <None Include="Stage\images\default\papilio-tv-static-animated.gif" />
+    <None Include="Resources\papilioPapilioLogo.png" />
+    <None Include="Resources\papilioFloppy-icon.png" />
+    <None Include="Resources\papilio_fpga-icon.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

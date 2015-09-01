@@ -1,0 +1,345 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DatUpdate_ClearOldDats_Error_dat_found_on_item_listed_as_not_in_dat" xml:space="preserve">
+    <value>Error dat found on item listed as not in dat</value>
+  </data>
+  <data name="DatUpdate_ClearOldDats_This_is_bad__rBase_Dat_is_set_to_a_dat_and_rBase_DatStatus_is_not" xml:space="preserve">
+    <value>This is bad, rBase.Dat is set to a dat, and rBase.DatStatus is not</value>
+  </data>
+  <data name="DatUpdate_ClearOldDats_Unknown_File_Delete_Test" xml:space="preserve">
+    <value>Unknown File Delete Test </value>
+  </data>
+  <data name="DatUpdate_ClearOldDats_Got_to_a_non_dir_when_checking_Dir_s_for_dats_to_remove" xml:space="preserve">
+    <value>Got to a non dir when checking Dir's for dats to remove</value>
+  </data>
+  <data name="DatUpdate_ClearOldDats_Unknown_file_setup" xml:space="preserve">
+    <value>Unknown file setup</value>
+  </data>
+  <data name="DatUpdate_UpdateDatList_Path" xml:space="preserve">
+    <value>Path: </value>
+  </data>
+  <data name="DatUpdate_UpdateDatList_Not_Found" xml:space="preserve">
+    <value> Not Found.</value>
+  </data>
+  <data name="DatUpdate_UpdateDatList_Empty_Directories_found_in" xml:space="preserve">
+    <value>Empty Directories found in '</value>
+  </data>
+  <data name="DatUpdate_UpdateDatList_Directory_will_be_ignored" xml:space="preserve">
+    <value>' Directory will be ignored.</value>
+  </data>
+  <data name="DatUpdate_UpdateDatList_RomValue_Scan_Error" xml:space="preserve">
+    <value>RomValue Scan Error:</value>
+  </data>
+  <data name="DatCmpReader_ReadDat_Error_keyword" xml:space="preserve">
+    <value>Error: key word '</value>
+  </data>
+  <data name="DatCmpReader_ReadDat_not_known" xml:space="preserve">
+    <value>' not known</value>
+  </data>
+  <data name="DatCmpReader_LoadHeaderFromDat_not_found_after_clrmamepro" xml:space="preserve">
+    <value>( not found after clrmamepro</value>
+  </data>
+  <data name="DatCmpReader_LoadHeaderFromDat_not_known_in_clrmamepro" xml:space="preserve">
+    <value>' not known in clrmamepro</value>
+  </data>
+  <data name="DatCmpReader_LoadGameFromDat_not_found_after_game" xml:space="preserve">
+    <value>( not found after game</value>
+  </data>
+  <data name="DatCmpReader_LoadGameFromDat_Name_not_found_as_first_object_in" xml:space="preserve">
+    <value>Name not found as first object in ( )</value>
+  </data>
+  <data name="DatCmpReader_LoadGameFromDat_not_known_in_game" xml:space="preserve">
+    <value>' not known in game</value>
+  </data>
+  <data name="DatCmpReader_LoadRomFromDat_not_found_after_rom" xml:space="preserve">
+    <value>( not found after rom</value>
+  </data>
+  <data name="DatCmpReader_LoadRomFromDat_not_known_in_rom" xml:space="preserve">
+    <value>' not known in rom</value>
+  </data>
+  <data name="FixFiles_FixFile_Trying_to_fix_a_file_that_already_exists" xml:space="preserve">
+    <value>Trying to fix a file that already exists </value>
+  </data>
+  <data name="FixFiles_FixFile__Did_you_manualy_fix_this_file_without_rescanning" xml:space="preserve">
+    <value> Did you manualy fix this file without rescanning?</value>
+  </data>
+  <data name="FixFiles_FixFile__But_the_case_of_the_unknown_file_is_wrong_Rescan_and_try_agian" xml:space="preserve">
+    <value> But the case of the unknown file is wrong. Rescan and try agian.</value>
+  </data>
+  <data name="FixFiles_FixFile_Unable_to_Find_the_file_used_to_fix" xml:space="preserve">
+    <value>Unable to Find the file used to fix </value>
+  </data>
+  <data name="FixFiles_FixFile_Unsupported_file_Fix" xml:space="preserve">
+    <value>Unsupported file Fix</value>
+  </data>
+  <data name="FixFiles_FixFile_Unknown_fix_file_type" xml:space="preserve">
+    <value>Unknown fix file type </value>
+  </data>
+  <data name="FixFiles_FixZip_Error_finding_Fixing_Rom_Database_is_corrupt" xml:space="preserve">
+    <value>Error finding Fixing Rom, Database is corrupt.</value>
+  </data>
+  <data name="FixFiles_FixZip_Unknown_type" xml:space="preserve">
+    <value>Unknown type</value>
+  </data>
+  <data name="FixFiles_FixZip_This_Delete_case_should_never_happen__you_do_not_delete_a_rom_you_collect" xml:space="preserve">
+    <value>This Delete case should never happen, you do not delete a rom you collect.</value>
+  </data>
+  <data name="FixFiles_FixZip_This_Delete_case_should_never_happen__help" xml:space="preserve">
+    <value>This Delete case should never happen, help </value>
+  </data>
+  <data name="FixFiles_OpenOriginalZip_Unknown_File_Open_Type" xml:space="preserve">
+    <value>Unknown File Open Type.</value>
+  </data>
+  <data name="FixFiles_OpenOriginalZip_File_TimeStamp_has_changed_in_file" xml:space="preserve">
+    <value>File TimeStamp has changed in file </value>
+  </data>
+  <data name="FixFiles_OpenOriginalZip_File_not_found" xml:space="preserve">
+    <value>File not found :</value>
+  </data>
+  <data name="FixFiles_OpenOriginalZip_Trying_to_open_an_unscanned_file" xml:space="preserve">
+    <value>Trying to open an unscanned file :</value>
+  </data>
+  <data name="FixFiles_OpenOriginalZip_Found_an_unknown_file" xml:space="preserve">
+    <value>Found an unknown file :</value>
+  </data>
+  <data name="FixFiles_OpenOriginalZip_did_you_delete_it" xml:space="preserve">
+    <value> did you delete it?</value>
+  </data>
+  <data name="FixFiles_PerformFixes_Trying_to_fix_unscanned_dir_s" xml:space="preserve">
+    <value>Trying to fix unscanned dir's</value>
+  </data>
+  <data name="DatUpdate_MergeInDat_Error_in_Logic" xml:space="preserve">
+    <value>Error in Logic</value>
+  </data>
+  <data name="DatUpdate_MergeInDat_Unkown_Update_Dat_Status" xml:space="preserve">
+    <value>Unkown Update Dat Status </value>
+  </data>
+  <data name="FrmMain_UpdateRomGrid_File_Type_Missing_" xml:space="preserve">
+    <value>File Type Missing </value>
+  </data>
+  <data name="RvBase_Read_Dat_found_without_an_index" xml:space="preserve">
+    <value>Dat found without an index</value>
+  </data>
+  <data name="RvDir_ClearDat_Clearing_Dir_with_a_dat_list" xml:space="preserve">
+    <value>Clearing Dir with a dat list</value>
+  </data>
+  <data name="RvDir_SetDat_Setting_Dir_with_a_dat_list" xml:space="preserve">
+    <value>Setting Dir with a dat list</value>
+  </data>
+  <data name="DB_Read_Data_Cache_version_is_out_of_date_you_should_now_rescan_your_dat_directory_and_roms_directory_" xml:space="preserve">
+    <value>Data Cache version is out of date you should now rescan your dat directory and roms directory.</value>
+  </data>
+  <data name="ProgressWindowFix_OnClosing_Cancelling" xml:space="preserve">
+    <value>Cancelling</value>
+  </data>
+  <data name="ProgressWindowFix_DoDone_Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="FindFixes_ListCheck_Unknown_test_status" xml:space="preserve">
+    <value>Unknown test status </value>
+  </data>
+  <data name="Comma" xml:space="preserve">
+    <value> , </value>
+  </data>
+  <data name="FindFixes_ListCheck_Error_Case" xml:space="preserve">
+    <value>Error Case </value>
+  </data>
+  <data name="FindFixes_ListCheck_Nothing_Set_For" xml:space="preserve">
+    <value>Nothing Set For </value>
+  </data>
+  <data name="Utils_ResetGotStatus_Unknown_Reset_Got_status" xml:space="preserve">
+    <value>Unknown Reset Got status </value>
+  </data>
+  <data name="FrmSetDir_BtnSetRomLocationClick_Please_select_a_folder_for_This_Rom_Set" xml:space="preserve">
+    <value>Please select a folder for This Rom Set</value>
+  </data>
+  <data name="FrmSetDir_BtnDeleteSelectedClick_You_cannot_delete_the" xml:space="preserve">
+    <value>You cannot delete the </value>
+  </data>
+  <data name="FrmSetDir_BtnDeleteSelectedClick_Directory_Settings" xml:space="preserve">
+    <value> Directory Settings</value>
+  </data>
+  <data name="FrmSetDir_BtnDeleteSelectedClick_ROMVault_Rom_Location" xml:space="preserve">
+    <value>ROMVault Rom Location</value>
+  </data>
+  <data name="FrmSetDir_DataGridGamesDoubleClick_Edit_Existing_Directory_Mapping" xml:space="preserve">
+    <value>Edit Existing Directory Mapping</value>
+  </data>
+  <data name="FrmSettings_BtnDatClick_Please_select_a_folder_for_DAT_Root" xml:space="preserve">
+    <value>Please select a folder for DAT Root</value>
+  </data>
+  <data name="RvBase_Check_Unknown_Error_Status_File" xml:space="preserve">
+    <value>Unknown Error Status File </value>
+  </data>
+  <data name="RvBase_Check" xml:space="preserve">
+    <value> , </value>
+  </data>
+  <data name="RvBase_SetGot_Unknown_Set_Got_Status" xml:space="preserve">
+    <value>Unknown Set Got Status </value>
+  </data>
+  <data name="RvDir_UpdateArrGotStatus_Count_went_negative" xml:space="preserve">
+    <value>Count went negative.</value>
+  </data>
+  <data name="DatUpdate_ClearRemovedDatsFromTheDb_This_should_also_never_happen" xml:space="preserve">
+    <value>This should also never happen.</value>
+  </data>
+  <data name="DatUpdate_UpdateDatFile_Unknown_Merge_Status" xml:space="preserve">
+    <value>Unknown Merge Status</value>
+  </data>
+  <data name="FixFiles_FixDirChildren_Unknown_result_type" xml:space="preserve">
+    <value>Unknown result type</value>
+  </data>
+  <data name="FixFiles_FixZip_Error_in_Fix_Rom_Status" xml:space="preserve">
+    <value>Error in Fix Rom Status </value>
+  </data>
+  <data name="FixFiles_FixZip_Colon" xml:space="preserve">
+    <value> : </value>
+  </data>
+  <data name="FileScanning_CheckADir_Error_in_File_Scanning_Code" xml:space="preserve">
+    <value>Error in File Scanning Code.</value>
+  </data>
+  <data name="DatCmpReader_LoadDirFromDat_Error_Keyword" xml:space="preserve">
+    <value>Error Keyword </value>
+  </data>
+  <data name="DatCmpReader_LoadDirFromDat_not_know_in_dir" xml:space="preserve">
+    <value>not know in dir</value>
+  </data>
+  <data name="Program_Main_You_must_have_a__user____NAME__xml__file_to_use_ROMVault" xml:space="preserve">
+    <value>You must have a 'user - &lt;NAME&gt;.xml' file to use ROMVault</value>
+  </data>
+  <data name="Program_Main_You_are_not_Authorised_to_use_this_program" xml:space="preserve">
+    <value>You are not Authorised to use this program.</value>
+  </data>
+  <data name="Program_Main_There_is_a_new_release_download_now_from" xml:space="preserve">
+    <value>There is a new release download now from </value>
+  </data>
+  <data name="DatUpdate_UpdateDatList_ERROR_Deleting_a_DAT_that_should_already_be_deleted" xml:space="preserve">
+    <value>ERROR Deleting a DAT that should already be deleted</value>
+  </data>
+  <data name="FixFiles_FixZip_Error_processing_zip" xml:space="preserve">
+    <value>Error processing zip </value>
+  </data>
+  <data name="Report_MakeFixFiles_Please_select_a_folder_for_Dats" xml:space="preserve">
+    <value>Please select a folder for Dats</value>
+  </data>
+  <data name="FrmMain_DirTreeRvSelected_Set_ROM_DIR">
+    <value xml:space="preserve">Set ROM DIR</value>
+  </data>
+</root>
