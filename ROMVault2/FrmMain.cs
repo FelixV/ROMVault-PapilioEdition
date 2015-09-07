@@ -67,6 +67,9 @@ namespace ROMVault2
 
             InitializeComponent();
             addGameGrid();
+
+
+
             Text = string.Format("ROMVault - Papilio Edition ({0}.{1})", Program.Version, Program.SubVersion);
 
             // init fpga override selector
@@ -132,6 +135,11 @@ namespace ROMVault2
 
             splitContainer3_Panel1_Resize(new object(), new EventArgs());
             splitContainer4_Panel1_Resize(new object(), new EventArgs());
+
+
+
+
+
         }
 
         private Label lblSIName;
@@ -416,13 +424,14 @@ namespace ROMVault2
             cmbProgramTarget.Enabled = false;
 
             // set open path to library directory
-            dlgLoadBitfile.InitialDirectory = string.Concat(Application.StartupPath, "\\papilio\\library\\");
+			dlgLoadBitfile.InitialDirectory = string.Concat(Application.StartupPath, Path.DirectorySeparatorChar + "papilio"+  Path.DirectorySeparatorChar +"library"+  Path.DirectorySeparatorChar);
             dlgLoadBitfile.Title = "Load Bitfile from Library";
+
 
             // display loader form
             if (dlgLoadBitfile.ShowDialog() == DialogResult.OK)
             {
-                string CWDTMP = string.Concat(Application.StartupPath, "\\papilio\\_tmp\\");
+				string CWDTMP = string.Concat(Application.StartupPath, Path.DirectorySeparatorChar + "papilio" + Path.DirectorySeparatorChar + "_tmp" + Path.DirectorySeparatorChar);
                 if(System.IO.File.Exists(dlgLoadBitfile.FileName))
                 {
                     // bitfile found so lets clear tmp directory
@@ -462,7 +471,7 @@ namespace ROMVault2
    
             chkSaveGeneratedBitfile.Checked = false;
                 
-            if (parsePScriptPAPILIOPROG(splitDirective, false) == false)
+            if (parsePScriptPAPILIOPROG(splitDirective, true) == false)
             {
                 GameGrid.Enabled = true;
                 btnLoadGame.Enabled = true;
@@ -529,7 +538,7 @@ namespace ROMVault2
             }
             logBuffer = string.Concat("\r\n/* ROMVault Papilio Edition Logfile */\r\n\r\n", logBuffer, "\r\n/* ROMVault Papilio Edition Logfile */\r\n");
 
-            string bufferFilename = string.Concat(Application.StartupPath, "\\papilio\\_tmp\\log.txt");
+			string bufferFilename = string.Concat(Application.StartupPath, Path.DirectorySeparatorChar + "papilio" + Path.DirectorySeparatorChar +"_tmp" + Path.DirectorySeparatorChar + "log.txt");
 
             try
             {
@@ -910,6 +919,18 @@ namespace ROMVault2
 
             cmbProgramTarget.Enabled = false;
 
+			Debug.Assert (tGame != null,"tGame is null");
+
+			if (tGame == null) {
+				return;
+				
+			}
+			Debug.Assert (tGame.Game != null,"tGame.Game is null");
+
+			if (tGame.Game == null) {
+				return;
+
+			}
             if (tGame.Game.GetData(RvGame.GameData.Papilio) == "no")
             {
 
@@ -1372,15 +1393,15 @@ namespace ROMVault2
                     lblSITTotalRoms.Visible = false;
 
                 // update Marquee (if exists)
-                    string marqueeFilename = string.Concat(Application.StartupPath, "\\images\\", lblDITName.Text.Trim(), "\\M\\", lblSITName.Text.Trim(), ".png");
-                    string snapFilename = string.Concat(Application.StartupPath, "\\images\\", lblDITName.Text.Trim(), "\\I\\", lblSITName.Text.Trim(),".png");
+				string marqueeFilename = string.Concat(Application.StartupPath, Path.DirectorySeparatorChar + "images" + Path.DirectorySeparatorChar, lblDITName.Text.Trim(), Path.DirectorySeparatorChar +"M" + Path.DirectorySeparatorChar, lblSITName.Text.Trim(), ".png");
+				string snapFilename = string.Concat(Application.StartupPath, Path.DirectorySeparatorChar + "images" + Path.DirectorySeparatorChar, lblDITName.Text.Trim(), Path.DirectorySeparatorChar + "I" + Path.DirectorySeparatorChar, lblSITName.Text.Trim(),".png");
                     if (System.IO.File.Exists(marqueeFilename))
                     {
                         picMarquee.ImageLocation = marqueeFilename;
                     }
                     else
                     {
-                        marqueeFilename = string.Concat(Application.StartupPath, "\\images\\", lblDITName.Text.Trim(), "\\Marquee.png");
+					marqueeFilename = string.Concat(Application.StartupPath, Path.DirectorySeparatorChar + "images" +  Path.DirectorySeparatorChar, lblDITName.Text.Trim(), Path.DirectorySeparatorChar + "Marquee.png");
                         if (System.IO.File.Exists(marqueeFilename))
                         {
                             picMarquee.ImageLocation = marqueeFilename;
@@ -1398,7 +1419,7 @@ namespace ROMVault2
                     }
                     else
                     {
-                        snapFilename = string.Concat(Application.StartupPath, "\\images\\", lblDITName.Text.Trim(), "\\Title.png");
+					snapFilename = string.Concat(Application.StartupPath,  Path.DirectorySeparatorChar + "images" + Path.DirectorySeparatorChar, lblDITName.Text.Trim(), Path.DirectorySeparatorChar + "Title.png");
                         if (System.IO.File.Exists(snapFilename))
                         {
                             picSnap.ImageLocation = snapFilename;

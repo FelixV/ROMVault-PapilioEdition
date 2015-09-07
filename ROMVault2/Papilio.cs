@@ -16,6 +16,7 @@ using ROMVault2.Utils;
 using ROMVault2.SupportedFiles;
 
 
+
 // Icons by http://www.iconarchive.com/show/blankon-icons-by-zeusbox.html
 
 
@@ -83,6 +84,7 @@ namespace ROMVault2
             }
 
             Process exeProcess = new Process();
+
             exeProcess.StartInfo.FileName = string.Concat(CWD, exeName);
             exeProcess.StartInfo.Arguments = arguments;
             exeProcess.StartInfo.UseShellExecute = false;
@@ -166,8 +168,12 @@ namespace ROMVault2
 
                 doLog(" - Detecting Papilio Device");
 
-                string CWD = string.Concat(Application.StartupPath, "\\papilio\\tools\\");
+				string CWD = string.Concat(Application.StartupPath, Path.DirectorySeparatorChar+ "papilio"+Path.DirectorySeparatorChar+ "tools" +Path.DirectorySeparatorChar );
                 string tool = "papilio-prog.exe";
+
+				if (Settings.IsMono) {
+					tool = "linux" + Path.DirectorySeparatorChar + "papilio-prog";
+				}
                 string toolArgs = "-j";
 
                 try
@@ -284,7 +290,9 @@ namespace ROMVault2
         private bool clearPapilioBuildDirectory(bool debugMode)
         {
             doLog(" - Clearing `_tmp` directory");
-            string PapilioTMPPath = string.Concat(Application.StartupPath, "\\papilio\\_tmp\\");
+			string PapilioTMPPath = string.Concat(Application.StartupPath, Path.DirectorySeparatorChar + "papilio"+ Path.DirectorySeparatorChar +"_tmp");
+			Console.WriteLine("clearPapilioBuildDirectory");
+			Console.WriteLine(PapilioTMPPath);
             try
             {
                 // delete temp directory and recreate it..
@@ -304,28 +312,39 @@ namespace ROMVault2
 
         private bool doUnzipSelectedFile(bool debugMode)
         {
-            string CWDTMP = string.Concat(Application.StartupPath, "\\papilio\\_tmp"); // unzip doesnt like trailing slash
-            string CWD = string.Concat(Application.StartupPath, "\\papilio\\tools\\");
-            string zipFilename = string.Concat(Application.StartupPath,"\\",lblDITPath.Text,"\\",lblSITName.Text,".zip");
-            string tool = "unzip.exe";
-            string toolArgs = string.Concat("-qq -o \"",zipFilename,"\" -d \"",CWDTMP,"\"");
+			string CWDTMP = string.Concat(Application.StartupPath, Path.DirectorySeparatorChar + "papilio" + Path.DirectorySeparatorChar+ "_tmp"); // unzip doesnt like trailing slash
+			//string CWD = string.Concat(Application.StartupPath, Path.DirectorySeparatorChar + "papilio" + Path.DirectorySeparatorChar + "tools"+ Path.DirectorySeparatorChar);
+			string zipFilename = string.Concat(Application.StartupPath,Path.DirectorySeparatorChar,lblDITPath.Text,Path.DirectorySeparatorChar,lblSITName.Text,".zip");
+            //string tool = "unzip.exe";
+            //string toolArgs = string.Concat("-qq -o \"",zipFilename,"\" -d \"",CWDTMP,"\"");
 
             doLog(string.Concat(" - Unzip `", lblDITPath.Text, "\\", lblSITName.Text, ".zip`"));
 
-            //doLog(string.Concat(" - - unzip -qq -o \"",zipFilename,"\" -d \"..\\_tmp\""));
-            try
-            {
-                RunEXE(CWD, tool, toolArgs, 1, debugMode);
-                return true;
-            }
+			Console.WriteLine (zipFilename);
+			Console.WriteLine (CWDTMP);
 
-            catch
-            {
-                doLog(string.Concat(" - - Aborting - An error has occurred while trying to unzip `",zipFilename,"`"));
-                return false;
-            }
+			try {
+				ZipFile.ExtractToDirectory (zipFilename, CWDTMP);
+			} catch (Exception ex) {
+
+				Console.WriteLine (ex.StackTrace);
+				return false;
+			}
+
+            //doLog(string.Concat(" - - unzip -qq -o \"",zipFilename,"\" -d \"..\\_tmp\""));
+            //try
+            //{
+             //   RunEXE(CWD, tool, toolArgs, 1, debugMode);
+                return true;
+            //}
+
+            //catch
+            //{
+            //    doLog(string.Concat(" - - Aborting - An error has occurred while trying to unzip `",zipFilename,"`"));
+            //    return false;
+            //}
             
-            //return true;
+            return true;
 
         }
 
@@ -334,12 +353,17 @@ namespace ROMVault2
 
             doLog(" - Copying Base Hardware");
             
-            string CWDTMP = string.Concat(Application.StartupPath, "\\papilio\\_tmp\\");
-            string CWDHW = string.Concat(Application.StartupPath, "\\papilio\\hardware\\", lblDITPath.Text.Replace("ROMRoot\\",""), "\\", lblPapilioDevice.Text, "\\",baseHardware);
+			string CWDTMP = string.Concat(Application.StartupPath, Path.DirectorySeparatorChar + "papilio"+ Path.DirectorySeparatorChar + "_tmp" +  Path.DirectorySeparatorChar);
+			string CWDHW = string.Concat(Application.StartupPath, Path.DirectorySeparatorChar + "papilio"+ Path.DirectorySeparatorChar + "hardware" + Path.DirectorySeparatorChar, lblDITPath.Text.Replace("ROMRoot"+ Path.DirectorySeparatorChar,""), Path.DirectorySeparatorChar, lblPapilioDevice.Text, Path.DirectorySeparatorChar,baseHardware);
             
             string baseBITFile = string.Concat(CWDHW, ".bit");
             string baseBMMFile = string.Concat(CWDHW, "_bd.bmm");
             
+
+			Console.WriteLine (CWDTMP);
+			Console.WriteLine (CWDHW);
+
+
             if (System.IO.File.Exists(baseBITFile))
             {
                 try
@@ -378,7 +402,7 @@ namespace ROMVault2
                 return false;
             }
 
-            string CWD = string.Concat(Application.StartupPath,"\\papilio\\_tmp\\");
+			string CWD = string.Concat(Application.StartupPath,  Path.DirectorySeparatorChar + "papilio" + Path.DirectorySeparatorChar +"_tmp" +  Path.DirectorySeparatorChar);
             string sourceFiles = cmdArray[1];
             string destinationFile = cmdArray[2];
 
@@ -418,12 +442,16 @@ namespace ROMVault2
 
         private bool parsePScriptROMGEN(string[] cmdArray, bool debugMode)
         {
-            string CWDTMP = string.Concat(Application.StartupPath, "\\papilio\\_tmp\\");
-            string CWDPATCH = string.Concat(Application.StartupPath, "\\papilio\\patches\\", lblDITPath.Text.Replace("ROMRoot\\",""), "\\");
-            string CWD = string.Concat(Application.StartupPath, "\\papilio\\tools\\");
+			string CWDTMP = string.Concat(Application.StartupPath,  Path.DirectorySeparatorChar + "papilio" + Path.DirectorySeparatorChar +"_tmp" +  Path.DirectorySeparatorChar);
+			string CWDPATCH = string.Concat(Application.StartupPath,  Path.DirectorySeparatorChar + "papilio" + Path.DirectorySeparatorChar + "patches" + Path.DirectorySeparatorChar, lblDITPath.Text.Replace("ROMRoot" + Path.DirectorySeparatorChar,""), + Path.DirectorySeparatorChar);
+			string CWD = string.Concat(Application.StartupPath,  Path.DirectorySeparatorChar + "papilio" +  Path.DirectorySeparatorChar +"tools" +  Path.DirectorySeparatorChar );
 
             doLog(" - - Processing `romgen` PScript directive");
 
+			Console.WriteLine("parsePScriptROMGEN");
+			Console.WriteLine(CWDTMP);
+			Console.WriteLine(CWDPATCH);
+			Console.WriteLine(CWD);
             try
             {
                 if (cmdArray.Length == 4 || cmdArray.Length == 5)
@@ -433,14 +461,26 @@ namespace ROMVault2
                         // use -ini: switch to decrypt something! (TODO:: this needs love.. there is no patch sorting at all atm.. put in dir named after dat or something)
                         // lstLogs.Items.Add("saving decrypted rg output to " + cmdArray[2] + ".mem");
                         doLog(string.Concat(" - - - ROMGen: `", cmdArray[1], "` -> `", cmdArray[2], ".mem`", " Patch: `", cmdArray[4],"`"));
-                        using (StreamWriter outfile = new StreamWriter(string.Concat(CWDTMP, cmdArray[2], ".mem")))
+						Console.WriteLine(CWDTMP);
+						using (StreamWriter outfile = new StreamWriter(string.Concat(CWDTMP, cmdArray[2], ".mem")))
                         {
                             if (System.IO.File.Exists(string.Concat(CWDPATCH, cmdArray[4])))
                             {
                                 if (System.IO.File.Exists(string.Concat(CWDTMP, cmdArray[1])))
                                 {
-                                    string ROMGenOutput = RunEXE(CWD, "romgen.exe", string.Concat("\"", CWDTMP, cmdArray[1], "\" ", cmdArray[2], " ", cmdArray[3], " m r e -ini:\"", CWDPATCH, cmdArray[4], "\""), 1, debugMode);
-                                    outfile.Write(ROMGenOutput);
+									string ROMGenOutput;
+									if (Settings.IsMono){
+										Console.WriteLine("romgen args");
+										Console.WriteLine(CWD);
+										string myargs= string.Concat("\"", CWDTMP, cmdArray[1], "\" ", cmdArray[2], " ", cmdArray[3], " m r e -ini:\"", CWDPATCH, cmdArray[4], "\"");
+										Console.WriteLine(myargs);
+										ROMGenOutput = RunEXE(CWD, "linux"+ Path.DirectorySeparatorChar+"romgen",myargs , 1, debugMode);
+									}
+
+									else {
+									    ROMGenOutput = RunEXE(CWD, "romgen.exe", string.Concat("\"", CWDTMP, cmdArray[1], "\" ", cmdArray[2], " ", cmdArray[3], " m r e -ini:\"", CWDPATCH, cmdArray[4], "\""), 1, debugMode);
+									}
+									outfile.Write(ROMGenOutput);
                                     return true;
                                 }
                                 else
@@ -464,8 +504,21 @@ namespace ROMVault2
                         {
                             if (System.IO.File.Exists(string.Concat(CWDTMP, cmdArray[1])))
                             {
-                                string ROMGenOutput = RunEXE(CWD, "romgen.exe", string.Concat("\"", CWDTMP, cmdArray[1], "\" ", cmdArray[2], " ", cmdArray[3], " m r e"), 1, debugMode);
-                                //string ROMGenOutput = RunRandomExe(PapilioRootPath + "tools\\", "romgen.exe", "\"" + PapilioRootPath + "_tmp\\" + cmdArray[1] + "\" " + cmdArray[2] + " " + cmdArray[3] + " m r e", 1);
+                                
+								string ROMGenOutput;
+								if (Settings.IsMono)
+								{
+									string romgenArgs = string.Concat("\"", CWDTMP, cmdArray[1], "\" ", cmdArray[2], " ", cmdArray[3], " m r e");
+									Console.WriteLine("romgen args");
+									Console.WriteLine(romgenArgs);
+									ROMGenOutput = RunEXE(CWD,  "linux"+ Path.DirectorySeparatorChar+"romgen",romgenArgs , 1, debugMode);
+
+								}
+								else
+								{
+								 ROMGenOutput = RunEXE(CWD, "romgen.exe", string.Concat("\"", CWDTMP, cmdArray[1], "\" ", cmdArray[2], " ", cmdArray[3], " m r e"), 1, debugMode);
+								}
+									//string ROMGenOutput = RunRandomExe(PapilioRootPath + "tools\\", "romgen.exe", "\"" + PapilioRootPath + "_tmp\\" + cmdArray[1] + "\" " + cmdArray[2] + " " + cmdArray[3] + " m r e", 1);
                                 outfile.Write(ROMGenOutput);
                                 return true;
                             }
@@ -495,12 +548,20 @@ namespace ROMVault2
 
         private bool parsePScriptDATA2MEM(string[] cmdArray, bool debugMode)
         {
-            string CWDTMP = string.Concat(Application.StartupPath, "\\papilio\\_tmp\\");
-            string CWD = string.Concat(Application.StartupPath, "\\papilio\\tools\\");
+			string CWDTMP = string.Concat(Application.StartupPath, Path.DirectorySeparatorChar + "papilio" + Path.DirectorySeparatorChar +"_tmp" + Path.DirectorySeparatorChar);
+			string CWD = string.Concat(Application.StartupPath, Path.DirectorySeparatorChar + "papilio" + Path.DirectorySeparatorChar +"tools" + Path.DirectorySeparatorChar);
 
-            string tool = "data2mem.exe";
+			string tool;
+
+			if (Settings.IsMono) {
+				tool = "linux" + Path.DirectorySeparatorChar + "data2mem";
+			} else {
+			    tool = "data2mem.exe";
+			}
             string toolArgs = string.Concat("-bm \"" ,CWDTMP,"intermediate_bd.bmm\" -bt \"" , CWDTMP,"intermediate.bit\" -bd \"" , CWDTMP,cmdArray[1] , ".mem\" tag avrmap." , cmdArray[2] , " -o b \"" , CWDTMP,"processed.bit\"");
 
+			Console.WriteLine ("data2mem args");
+			Console.WriteLine (toolArgs);
             doLog(" - - Processing `data2mem` PScript directive");
 
 			if (cmdArray.Length == 3)
@@ -555,9 +616,9 @@ namespace ROMVault2
             doLog(" - - - Saving Generated Bitfile to Library");
 
             //dlgLoadBitfile.InitialDirectory
-            dlgSaveBitfile.InitialDirectory = string.Concat(Application.StartupPath, "\\papilio\\library\\");
+			dlgSaveBitfile.InitialDirectory = string.Concat(Application.StartupPath,  Path.DirectorySeparatorChar + "papilio" + Path.DirectorySeparatorChar + "library" +  Path.DirectorySeparatorChar);
             dlgSaveBitfile.Title = "Save Generated Bitfile to Library";
-            string CWDTMP = string.Concat(Application.StartupPath, "\\papilio\\_tmp\\");
+			string CWDTMP = string.Concat(Application.StartupPath,  Path.DirectorySeparatorChar + "papilio" + Path.DirectorySeparatorChar + "_tmp" +  Path.DirectorySeparatorChar);
 
             try
             {
@@ -593,10 +654,13 @@ namespace ROMVault2
             
             doLog(" - - Loading Bitfile");
             
-            string CWDTMP = string.Concat(Application.StartupPath, "\\papilio\\_tmp\\");
-            string CWD = string.Concat(Application.StartupPath, "\\papilio\\tools\\");
+			string CWDTMP = string.Concat(Application.StartupPath,  Path.DirectorySeparatorChar + "papilio" +  Path.DirectorySeparatorChar + "_tmp" +  Path.DirectorySeparatorChar);
+			string CWD = string.Concat(Application.StartupPath,  Path.DirectorySeparatorChar + "papilio" +  Path.DirectorySeparatorChar + "tools" +  Path.DirectorySeparatorChar);
 
             string tool = "papilio-prog.exe";
+			if (Settings.IsMono) {
+				tool = "linux"+ Path.DirectorySeparatorChar+ "papilio-prog";
+			}
             string toolArgs = "-v -f";
 
             string bitfileFilename = "";
@@ -621,7 +685,12 @@ namespace ROMVault2
                 if (cmbProgramTarget.Text == "FPGA")
                 {
                     doLog(" - - - to FPGA");
-                    string papilioprog_output = RunEXE(CWD, tool, string.Concat(toolArgs, " ", "\"", bitfileFilename, "\""), 1, debugMode);
+
+					string prog_args = string.Concat (toolArgs, " ", "\"", bitfileFilename, "\"");
+					Console.WriteLine("papilio-prog args");
+					Console.WriteLine(prog_args);
+
+					string papilioprog_output = RunEXE(CWD, tool, prog_args , 1, debugMode);
 
                     if (chkSaveGeneratedBitfile.Checked == false)
                     {
@@ -638,12 +707,17 @@ namespace ROMVault2
                 {
                     doLog(" - - - to Flash");
                     // TO test
-                    string bscanFile = string.Concat(Application.StartupPath, "\\papilio\\bscanSPI\\", lblPapilioDevice.Text,".bit");
+					string bscanFile = string.Concat(Application.StartupPath,  Path.DirectorySeparatorChar + "papilio" +  Path.DirectorySeparatorChar + "bscanSPI" +  Path.DirectorySeparatorChar, lblPapilioDevice.Text,".bit");
                     if (System.IO.File.Exists(bscanFile))
                     {
 
                         // " -v -f", bitfileFilename, " -b \"", bscanFile, "\" -sa  -r";
-                        string papilioprog_output = RunEXE(CWD, tool, string.Concat(" -v -f", bitfileFilename, " -b \"", bscanFile, "\" -sa  -r"), 1, debugMode);
+
+						string prog_args = string.Concat (" -v -f", bitfileFilename, " -b \"", bscanFile, "\" -sa  -r");
+						Console.WriteLine("papilio-prog args");
+						Console.WriteLine(prog_args);
+
+						string papilioprog_output = RunEXE(CWD, tool, prog_args, 1, debugMode);
                         doLog(" - - - - Triggering FPGA Reconfiguration");
                         papilioprog_output = RunEXE(CWD, tool, " -c", 1, debugMode);
 
