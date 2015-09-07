@@ -64,7 +64,7 @@ namespace ROMVault2
             CacheFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ROMVault2_" + DBVersion.Version + ".Cache");
 
             //DATRoot = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DATRoot");
-            DATRoot = "DATRoot";
+            DATRoot = "datroot";
 
             ScanLevel = eScanLevel.Level2;
             FixLevel = eFixLevel.TrrntZipLevel2;
