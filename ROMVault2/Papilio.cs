@@ -212,6 +212,10 @@ namespace ROMVault2
                             case "XC6SLX9":
 
                                 toolArgs = "-j -d \"Papilio DUO A\"";
+							    if (Settings.IsMono)
+							    {
+								  toolArgs = "-j -d \"Papilio DUO\"";
+							    }
                                 thisPapilio = RunEXE(CWD, tool, toolArgs, 1, debugMode).Split(':');
 
                                 if (thisPapilio.Length == 3)
@@ -225,6 +229,11 @@ namespace ROMVault2
                                 {
 
                                     toolArgs = "-j -d \"Dual RS232 A\"";
+								    if (Settings.IsMono)
+								    {
+									  toolArgs = "-j -d \"Dual RS232\"";
+								    }
+									
                                     thisPapilio = RunEXE(CWD, tool, toolArgs, 1, debugMode).Split(':');
 
                                     if (thisPapilio.Length == 3)
