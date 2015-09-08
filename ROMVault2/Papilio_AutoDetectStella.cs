@@ -19,7 +19,7 @@ namespace ROMVault2
         public string autodetectA2601(RvDir tGame)
         {
 
-            string CWD = string.Concat(Application.StartupPath, "\\papilio\\_tmp\\");
+			string CWD = string.Concat(Application.StartupPath, Path.DirectorySeparatorChar + "papilio" + Path.DirectorySeparatorChar +"_tmp" + Path.DirectorySeparatorChar);
             string cartrom = RomGrid.Rows[0].Cells["CRom"].Value.ToString();
             if (System.IO.File.Exists(string.Concat(CWD,cartrom)))
             {
