@@ -72,6 +72,11 @@ namespace ROMVault2
 
             Text = string.Format("ROMVault - Papilio Edition ({0}.{1})", Program.Version, Program.SubVersion);
 
+			if(Settings.IsMono)
+			{
+				Text = Text + "   (Linux Beta Version )";
+			}
+
             // init fpga override selector
             cmbFPGA.Items.Clear();
             cmbFPGA.Items.Add("Auto");

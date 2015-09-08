@@ -299,8 +299,9 @@ namespace ROMVault2
                 if (Directory.Exists(PapilioTMPPath))
                 {
                     Directory.Delete(PapilioTMPPath, true);
-                    Directory.CreateDirectory(PapilioTMPPath);
+                    
                 }
+				Directory.CreateDirectory(PapilioTMPPath);
                 return true;
             }
             catch
