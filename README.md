@@ -1,11 +1,11 @@
 ROMVault-PapilioEdition by FelixV and mandl
 ROMVault source used with permission from GordonJ
 ========
-
-Building on Windows
- Install Visual Studio 2012 (Pro or Express)
- Open the .sln file in Visual C#
- Build
+\n
+Building on Windows\n
+ Install Visual Studio 2012 (Pro or Express)\n
+ Open the .sln file in Visual C#\n
+ Build\n
 
 Building on CentOS
  tbd
