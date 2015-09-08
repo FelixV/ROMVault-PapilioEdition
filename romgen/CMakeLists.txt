@@ -1,3 +1,3 @@
 
 add_executable(romgen romgen.cpp)
-install(TARGETS romgen DESTINATION PapilioArcade/programmer/linux32)
+install(TARGETS romgen DESTINATION ROMVault-Papilio/papilio/tools/linux)
