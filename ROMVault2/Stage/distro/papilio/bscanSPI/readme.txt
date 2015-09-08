@@ -1,1 +1,0 @@
-XC6SLX9-DUO.bit and XC6SLX9-PRO.bit are the same file just copied so i dont have to code for it in the UI
