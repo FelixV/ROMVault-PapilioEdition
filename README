@@ -19,10 +19,12 @@ Building on Ubuntu 14.04 (and most likely other debian based distro's)
   Install cmake and libftdi-dev
    sudo apt-get install cmake libftdi-dev
 
-  Build romgen and papilio_prog
+  Build romgen, papilio_prog and ROMVault
    mkdir build
    cd build
    cmake ../
+   make
+   
 
 TODO
  test building/running on linux on a per distro basis
