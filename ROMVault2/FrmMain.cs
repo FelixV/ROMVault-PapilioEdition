@@ -917,20 +917,11 @@ namespace ROMVault2
                 UpdateGameGrid(tGame);
                 DirTree.SetSelected(tGame);
             }
-
-			tGame.Game.GetType ();
-            lstLogs.Items.Clear();
-
-            GameGrid.Enabled = false;
-            btnLoadGame.Enabled = false;
-
-            cmbProgramTarget.Enabled = false;
-
 			Debug.Assert (tGame != null,"tGame is null");
 
 			if (tGame == null) {
 				return;
-				
+
 			}
 			Debug.Assert (tGame.Game != null,"tGame.Game is null");
 
@@ -939,6 +930,13 @@ namespace ROMVault2
 
 			}
 
+			tGame.Game.GetType ();
+            lstLogs.Items.Clear();
+
+            GameGrid.Enabled = false;
+            btnLoadGame.Enabled = false;
+
+            cmbProgramTarget.Enabled = false;
 
 
 
