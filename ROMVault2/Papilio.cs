@@ -415,7 +415,7 @@ namespace ROMVault2
 			string CWD = string.Concat(Application.StartupPath,  Path.DirectorySeparatorChar + "papilio" + Path.DirectorySeparatorChar +"_tmp" +  Path.DirectorySeparatorChar);
             string sourceFiles = cmdArray[1];
             string destinationFile = cmdArray[2];
-
+			Console.WriteLine (CWD);
             //lstLogs.Items.Add(cmdArray[0]);
             doLog(" - - Processing `merge` PScript directive");
             try
@@ -423,9 +423,11 @@ namespace ROMVault2
                 using (FileStream outputFileStream = File.Create(string.Concat(CWD, destinationFile)))
                 {
                     string[] baseFiles = sourceFiles.Split('|');
+
                     foreach (string baseFile in baseFiles)
                     {
-                        if (System.IO.File.Exists(string.Concat(CWD, baseFile)))
+						Console.WriteLine (baseFile);
+						if (System.IO.File.Exists(string.Concat(CWD, baseFile)))
                         {
                             using (FileStream fs = File.OpenRead(string.Concat(CWD, baseFile)))
                             {

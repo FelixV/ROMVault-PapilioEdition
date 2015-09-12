@@ -896,7 +896,7 @@ namespace ROMVault2
 
         private void GameGridMouseDoubleClick(object sender, MouseEventArgs e)
         {
-            
+			int GameStat =0;
             //lstLogs.Items.Add("gg clicked");
 
             if (_updatingGameGrid)
@@ -918,7 +918,7 @@ namespace ROMVault2
                 DirTree.SetSelected(tGame);
             }
 
-
+			tGame.Game.GetType ();
             lstLogs.Items.Clear();
 
             GameGrid.Enabled = false;
@@ -938,6 +938,25 @@ namespace ROMVault2
 				return;
 
 			}
+
+
+
+
+			ReportStatus tDirStat = tGame.DirStatus;
+		
+
+			foreach ( RepStatus t1 in RepairStatus.DisplayOrder)
+			{
+				if (tDirStat.Get (t1) <= 0) {	
+					continue;
+				}
+				GameStat = (int)t1;
+				     
+				break;
+			}
+
+			Console.WriteLine (GameStat);
+
             if (tGame.Game.GetData(RvGame.GameData.Papilio) == "no")
             {
 
@@ -948,10 +967,11 @@ namespace ROMVault2
             }
             else
             {
-
+				
                 // run pscript for the game
-                papilioParsePapilioScript(tGame);
-
+				if (GameStat == (int)RepStatus.Correct) {	
+					papilioParsePapilioScript (tGame);
+				}
             }
 
             GameGrid.Enabled = true;
@@ -1027,7 +1047,7 @@ namespace ROMVault2
             else if (GameGrid.Columns[e.ColumnIndex].Name == "CGame")
             {
                 e.CellStyle.BackColor = bgCol;
-
+				GameGrid.Columns [e.ColumnIndex].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
                 if (String.IsNullOrEmpty(tRvDir.FileName))
                     e.Value = tRvDir.Name;
                 else
@@ -1037,12 +1057,16 @@ namespace ROMVault2
             {
                 e.CellStyle.BackColor = bgCol;
 
-                if (tRvDir.Game != null)
-                    e.Value = tRvDir.Game.GetData(RvGame.GameData.Description);
+				GameGrid.Columns [e.ColumnIndex].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+				if (tRvDir.Game != null) {	
+					e.Value = tRvDir.Game.GetData (RvGame.GameData.Description);
+				}
             }
             else if (GameGrid.Columns[e.ColumnIndex].Name == "CCorrect")
             {
                 e.CellStyle.SelectionBackColor = Color.White;
+				GameGrid.Columns [e.ColumnIndex].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
 
                 Bitmap bmp = new Bitmap(cellBounds.Width, cellBounds.Height);
                 Graphics g = Graphics.FromImage(bmp);
