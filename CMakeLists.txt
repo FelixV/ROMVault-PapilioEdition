@@ -10,6 +10,11 @@ include(CheckIncludeFiles)
 add_subdirectory(papilio_prog)
 add_subdirectory(romgen)
 
+add_custom_target( ROMVault2 ALL
+                   COMMAND ${CMAKE_SOURCE_DIR}/ROMVault2/build.sh
+                   WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/ROMVault2
+                    )
+                   
 INSTALL(DIRECTORY ROMVault2/Stage/datroot ROMVault2/Stage/images ROMVault2/Stage/papilio ROMVault2/Stage/ROMRoot ROMVault2/Stage/Unsorted DESTINATION ROMVault-Papilio  USE_SOURCE_PERMISSIONS)
 INSTALL(FILES ROMVault2/Stage/ROMVault22.exe PERMISSIONS OWNER_EXECUTE OWNER_READ DESTINATION ROMVault-Papilio)
 

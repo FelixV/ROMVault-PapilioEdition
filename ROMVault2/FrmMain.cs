@@ -72,7 +72,9 @@ namespace ROMVault2
 
             Text = string.Format("ROMVault - Papilio Edition ({0}.{1})", Program.Version, Program.SubVersion);
 
-			if(Settings.IsMono)
+			Settings.getUserHomeFolder ();
+
+			if(Settings.IsUnix)
 			{
 				Text = Text + "   (Linux Beta Version )";
 			}
