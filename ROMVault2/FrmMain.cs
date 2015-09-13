@@ -72,7 +72,9 @@ namespace ROMVault2
 
             Text = string.Format("ROMVault - Papilio Edition ({0}.{1})", Program.Version, Program.SubVersion);
 
-			if(Settings.IsMono)
+			Settings.getUserHomeFolder ();
+
+			if(Settings.IsUnix)
 			{
 				Text = Text + "   (Linux Beta Version )";
 			}
@@ -894,7 +896,7 @@ namespace ROMVault2
 
         private void GameGridMouseDoubleClick(object sender, MouseEventArgs e)
         {
-            
+			int GameStat =0;
             //lstLogs.Items.Add("gg clicked");
 
             if (_updatingGameGrid)
@@ -915,20 +917,11 @@ namespace ROMVault2
                 UpdateGameGrid(tGame);
                 DirTree.SetSelected(tGame);
             }
-
-
-            lstLogs.Items.Clear();
-
-            GameGrid.Enabled = false;
-            btnLoadGame.Enabled = false;
-
-            cmbProgramTarget.Enabled = false;
-
 			Debug.Assert (tGame != null,"tGame is null");
 
 			if (tGame == null) {
 				return;
-				
+
 			}
 			Debug.Assert (tGame.Game != null,"tGame.Game is null");
 
@@ -936,6 +929,32 @@ namespace ROMVault2
 				return;
 
 			}
+
+			tGame.Game.GetType ();
+            lstLogs.Items.Clear();
+
+            GameGrid.Enabled = false;
+            btnLoadGame.Enabled = false;
+
+            cmbProgramTarget.Enabled = false;
+
+
+
+			ReportStatus tDirStat = tGame.DirStatus;
+		
+
+			foreach ( RepStatus t1 in RepairStatus.DisplayOrder)
+			{
+				if (tDirStat.Get (t1) <= 0) {	
+					continue;
+				}
+				GameStat = (int)t1;
+				     
+				break;
+			}
+
+			Console.WriteLine (GameStat);
+
             if (tGame.Game.GetData(RvGame.GameData.Papilio) == "no")
             {
 
@@ -946,10 +965,11 @@ namespace ROMVault2
             }
             else
             {
-
+				
                 // run pscript for the game
-                papilioParsePapilioScript(tGame);
-
+				if (GameStat == (int)RepStatus.Correct) {	
+					papilioParsePapilioScript (tGame);
+				}
             }
 
             GameGrid.Enabled = true;
@@ -1025,7 +1045,7 @@ namespace ROMVault2
             else if (GameGrid.Columns[e.ColumnIndex].Name == "CGame")
             {
                 e.CellStyle.BackColor = bgCol;
-
+				GameGrid.Columns [e.ColumnIndex].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
                 if (String.IsNullOrEmpty(tRvDir.FileName))
                     e.Value = tRvDir.Name;
                 else
@@ -1035,12 +1055,16 @@ namespace ROMVault2
             {
                 e.CellStyle.BackColor = bgCol;
 
-                if (tRvDir.Game != null)
-                    e.Value = tRvDir.Game.GetData(RvGame.GameData.Description);
+				GameGrid.Columns [e.ColumnIndex].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+				if (tRvDir.Game != null) {	
+					e.Value = tRvDir.Game.GetData (RvGame.GameData.Description);
+				}
             }
             else if (GameGrid.Columns[e.ColumnIndex].Name == "CCorrect")
             {
                 e.CellStyle.SelectionBackColor = Color.White;
+				GameGrid.Columns [e.ColumnIndex].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
 
                 Bitmap bmp = new Bitmap(cellBounds.Width, cellBounds.Height);
                 Graphics g = Graphics.FromImage(bmp);

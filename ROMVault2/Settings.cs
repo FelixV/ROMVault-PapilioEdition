@@ -48,16 +48,25 @@ namespace ROMVault2
         public static bool CacheSaveTimerEnabled = true;
         public static int CacheSaveTimePeriod = 10;
 
+		private static string ROMVault2Data = "ROMVault2Data";
+
         public static bool IsUnix
         {
             get
             {
-                int p = (int)Environment.OSVersion.Platform;
-                return ((p == 4) || (p == 6) || (p == 128));
+               return ((Environment.OSVersion.Platform == PlatformID.Unix)|| (Environment.OSVersion.Platform == PlatformID.MacOSX))? true : false;
             }
         }
 
         public static bool IsMono { get { return (Type.GetType ("Mono.Runtime") != null); } }
+
+
+		public static string getUserHomeFolder()
+		{
+			string homePath = (Environment.OSVersion.Platform == PlatformID.Unix)? Environment.GetEnvironmentVariable("HOME") : Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%");
+			Console.WriteLine("User Home Folder: " + homePath);
+			return homePath;
+		} 	
 
         public static void SetDefaults()
         {

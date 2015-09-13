@@ -171,7 +171,7 @@ namespace ROMVault2
 				string CWD = string.Concat(Application.StartupPath, Path.DirectorySeparatorChar+ "papilio"+Path.DirectorySeparatorChar+ "tools" +Path.DirectorySeparatorChar );
                 string tool = "papilio-prog.exe";
 
-				if (Settings.IsMono) {
+				if (Settings.IsUnix) {
 					tool = "linux" + Path.DirectorySeparatorChar + "papilio-prog";
 				}
                 string toolArgs = "-j";
@@ -212,7 +212,7 @@ namespace ROMVault2
                             case "XC6SLX9":
 
                                 toolArgs = "-j -d \"Papilio DUO A\"";
-							    if (Settings.IsMono)
+							    if (Settings.IsUnix)
 							    {
 								  toolArgs = "-j -d \"Papilio DUO\"";
 							    }
@@ -229,7 +229,7 @@ namespace ROMVault2
                                 {
 
                                     toolArgs = "-j -d \"Dual RS232 A\"";
-								    if (Settings.IsMono)
+								    if (Settings.IsUnix)
 								    {
 									  toolArgs = "-j -d \"Dual RS232\"";
 								    }
@@ -415,7 +415,7 @@ namespace ROMVault2
 			string CWD = string.Concat(Application.StartupPath,  Path.DirectorySeparatorChar + "papilio" + Path.DirectorySeparatorChar +"_tmp" +  Path.DirectorySeparatorChar);
             string sourceFiles = cmdArray[1];
             string destinationFile = cmdArray[2];
-
+			Console.WriteLine (CWD);
             //lstLogs.Items.Add(cmdArray[0]);
             doLog(" - - Processing `merge` PScript directive");
             try
@@ -423,9 +423,11 @@ namespace ROMVault2
                 using (FileStream outputFileStream = File.Create(string.Concat(CWD, destinationFile)))
                 {
                     string[] baseFiles = sourceFiles.Split('|');
+
                     foreach (string baseFile in baseFiles)
                     {
-                        if (System.IO.File.Exists(string.Concat(CWD, baseFile)))
+						Console.WriteLine (baseFile);
+						if (System.IO.File.Exists(string.Concat(CWD, baseFile)))
                         {
                             using (FileStream fs = File.OpenRead(string.Concat(CWD, baseFile)))
                             {
@@ -479,7 +481,7 @@ namespace ROMVault2
                                 if (System.IO.File.Exists(string.Concat(CWDTMP, cmdArray[1])))
                                 {
 									string ROMGenOutput;
-									if (Settings.IsMono){
+									if (Settings.IsUnix){
 										Console.WriteLine("romgen args");
 										Console.WriteLine(CWD);
 										string myargs= string.Concat("\"", CWDTMP, cmdArray[1], "\" ", cmdArray[2], " ", cmdArray[3], " m r e -ini:\"", CWDPATCH, cmdArray[4], "\"");
@@ -516,7 +518,7 @@ namespace ROMVault2
                             {
                                 
 								string ROMGenOutput;
-								if (Settings.IsMono)
+								if (Settings.IsUnix)
 								{
 									string romgenArgs = string.Concat("\"", CWDTMP, cmdArray[1], "\" ", cmdArray[2], " ", cmdArray[3], " m r e");
 									Console.WriteLine("romgen args");
@@ -563,7 +565,7 @@ namespace ROMVault2
 
 			string tool;
 
-			if (Settings.IsMono) {
+			if (Settings.IsUnix) {
 				tool = "linux" + Path.DirectorySeparatorChar + "data2mem";
 			} else {
 			    tool = "data2mem.exe";
@@ -668,7 +670,7 @@ namespace ROMVault2
 			string CWD = string.Concat(Application.StartupPath,  Path.DirectorySeparatorChar + "papilio" +  Path.DirectorySeparatorChar + "tools" +  Path.DirectorySeparatorChar);
 
             string tool = "papilio-prog.exe";
-			if (Settings.IsMono) {
+			if (Settings.IsUnix) {
 				tool = "linux"+ Path.DirectorySeparatorChar+ "papilio-prog";
 			}
             string toolArgs = "-v -f";
@@ -820,11 +822,12 @@ namespace ROMVault2
                 string autodetectHardware = baseHardware.Substring(11);
                 switch (autodetectHardware.ToUpper())
                 {
-                    case "A2601":
-                        doLog(" - AutoDetecting Cartridge Type for A2601 Hardware");
-                        string bssType = autodetectA2601(tGame);
+				case "A2601":
+					doLog (" - AutoDetecting Cartridge Type for A2601 Hardware");
+					string bssType = autodetectA2601 (tGame);
 
-                        doLog(" - - Detected - " + bssType);
+					doLog (" - - Detected - " + bssType);
+					Console.WriteLine(" - - Detected - " + bssType);
 
                         switch (bssType)
                         {
