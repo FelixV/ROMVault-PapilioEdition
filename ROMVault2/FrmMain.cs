@@ -145,9 +145,7 @@ namespace ROMVault2
 
 
 
-
-
-        }
+		}
 
         private Label lblSIName;
         private Label lblSITName;
@@ -725,6 +723,7 @@ namespace ROMVault2
         private void UpdateGameGrid(RvDir tDir)
         {
 
+			Console.WriteLine ("UpdateGameGrid");
 
             lblDITName.Text = tDir.Name;
             if (tDir.Dat != null)
@@ -891,11 +890,16 @@ namespace ROMVault2
 
         private void GameGridSelectionChanged(object sender, EventArgs e)
         {
-            UpdateSelectedGame();
+			
+			Console.WriteLine ("GameGridSelectionChanged");
+
+
+			UpdateSelectedGame();
         }
 
         private void GameGridMouseDoubleClick(object sender, MouseEventArgs e)
         {
+			Console.WriteLine ("GameGridMouseDoubleClick");
 			int GameStat =0;
             //lstLogs.Items.Add("gg clicked");
 
@@ -914,8 +918,8 @@ namespace ROMVault2
             RvDir tGame = (RvDir)GameGrid.SelectedRows[0].Tag;
             if (tGame.Game == null)
             {
-                UpdateGameGrid(tGame);
-                DirTree.SetSelected(tGame);
+                //UpdateGameGrid(tGame);
+                //DirTree.SetSelected(tGame);
             }
 			Debug.Assert (tGame != null,"tGame is null");
 
@@ -1059,7 +1063,10 @@ namespace ROMVault2
 
 				if (tRvDir.Game != null) {	
 					e.Value = tRvDir.Game.GetData (RvGame.GameData.Description);
-				}
+				} else {
+
+					e.Value = tRvDir.Name;
+				}	
             }
             else if (GameGrid.Columns[e.ColumnIndex].Name == "CCorrect")
             {
@@ -1426,14 +1433,15 @@ namespace ROMVault2
 				string snapFilename = string.Concat(Application.StartupPath, Path.DirectorySeparatorChar + "images" + Path.DirectorySeparatorChar, lblDITName.Text.Trim(), Path.DirectorySeparatorChar + "I" + Path.DirectorySeparatorChar, lblSITName.Text.Trim(),".png");
                     if (System.IO.File.Exists(marqueeFilename))
                     {
-                        picMarquee.ImageLocation = marqueeFilename;
+					picMarquee.Image = Image.FromFile (marqueeFilename);
                     }
                     else
                     {
 					marqueeFilename = string.Concat(Application.StartupPath, Path.DirectorySeparatorChar + "images" +  Path.DirectorySeparatorChar, lblDITName.Text.Trim(), Path.DirectorySeparatorChar + "Marquee.png");
                         if (System.IO.File.Exists(marqueeFilename))
                         {
-                            picMarquee.ImageLocation = marqueeFilename;
+						
+						    picMarquee.Image = Image.FromFile (marqueeFilename);  
                         }
                         else
                         {
@@ -1444,14 +1452,14 @@ namespace ROMVault2
                 // update Snap Image (if exists)
                     if (System.IO.File.Exists(snapFilename))
                     {
-                        picSnap.ImageLocation = snapFilename;
+					picSnap.Image = Image.FromFile(snapFilename);
                     }
                     else
                     {
 					snapFilename = string.Concat(Application.StartupPath,  Path.DirectorySeparatorChar + "images" + Path.DirectorySeparatorChar, lblDITName.Text.Trim(), Path.DirectorySeparatorChar + "Title.png");
                         if (System.IO.File.Exists(snapFilename))
                         {
-                            picSnap.ImageLocation = snapFilename;
+						picSnap.Image = Image.FromFile(snapFilename);
                         }
                         else
                         {
@@ -1650,7 +1658,8 @@ namespace ROMVault2
 
         private void RomGridSelectionChanged(object sender, EventArgs e)
         {
-            RomGrid.ClearSelection();
+			Console.WriteLine ("RomGridSelectionChanged");
+			RomGrid.ClearSelection();
         }
 
         private void ChkBoxShowCorrectCheckedChanged(object sender, EventArgs e)
@@ -1753,26 +1762,28 @@ namespace ROMVault2
 
         private void GameGrid_MouseUp(object sender, MouseEventArgs e)
         {
-            if (e.Button != MouseButtons.Right)
-                return;
-
-            int currentMouseOverRow = GameGrid.HitTest(e.X, e.Y).RowIndex;
-            if (currentMouseOverRow >= 0)
-            {
-                object r1 = GameGrid.Rows[currentMouseOverRow].Cells[1].Value;
-                string filename = r1 != null ? r1.ToString() : "";
-                object r2 = GameGrid.Rows[currentMouseOverRow].Cells[2].Value;
-                string description = r2 != null ? r2.ToString() : "";
-
-                try
-                {
-                    Clipboard.Clear();
-                    Clipboard.SetText("Name : " + filename + Environment.NewLine + "Desc : " + description + Environment.NewLine);
-                }
-                catch
-                {
-                }
-            }
+            
+			Console.WriteLine ("GameGrid_MouseUp");
+//			if (e.Button != MouseButtons.Right)
+//                return;
+//
+//            int currentMouseOverRow = GameGrid.HitTest(e.X, e.Y).RowIndex;
+//            if (currentMouseOverRow >= 0)
+//            {
+//                object r1 = GameGrid.Rows[currentMouseOverRow].Cells[1].Value;
+//                string filename = r1 != null ? r1.ToString() : "";
+//                object r2 = GameGrid.Rows[currentMouseOverRow].Cells[2].Value;
+//                string description = r2 != null ? r2.ToString() : "";
+//
+//                try
+//                {
+//                    Clipboard.Clear();
+//                    Clipboard.SetText("Name : " + filename + Environment.NewLine + "Desc : " + description + Environment.NewLine);
+//                }
+//                catch
+//                {
+//                }
+//            }
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)

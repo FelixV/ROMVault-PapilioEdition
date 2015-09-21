@@ -178,7 +178,7 @@ namespace ROMVault2
 
                 try
                 {
-                    //string[] thisPapilio = RunEXE(CWD, tool, toolArgs, 1, debugMode).Split('\t');
+                    
                     string[] thisPapilio = RunEXE(CWD, tool, toolArgs, 1, debugMode).Split(':');
 
                     if (thisPapilio.Length == 3)
@@ -273,11 +273,10 @@ namespace ROMVault2
                         doLog(" - - Aborting - No Supported Papilio Device Detected");
                         PapilioBoardType = "None";
                         lblPapilioDevice.Text = PapilioBoardType;
-                        return false;
+                        
                     }
-
-                    doLog(" - - Aborting - No Supported Papilio Device Detected");
-                    return false;
+					return false;
+                   
                 }
 
                 catch
@@ -323,11 +322,8 @@ namespace ROMVault2
         private bool doUnzipSelectedFile(bool debugMode)
         {
 			string CWDTMP = string.Concat(Application.StartupPath, Path.DirectorySeparatorChar + "papilio" + Path.DirectorySeparatorChar+ "_tmp"); // unzip doesnt like trailing slash
-			//string CWD = string.Concat(Application.StartupPath, Path.DirectorySeparatorChar + "papilio" + Path.DirectorySeparatorChar + "tools"+ Path.DirectorySeparatorChar);
 			string zipFilename = string.Concat(Application.StartupPath,Path.DirectorySeparatorChar,lblDITPath.Text,Path.DirectorySeparatorChar,lblSITName.Text,".zip");
-            //string tool = "unzip.exe";
-            //string toolArgs = string.Concat("-qq -o \"",zipFilename,"\" -d \"",CWDTMP,"\"");
-
+            
             doLog(string.Concat(" - Unzip `", lblDITPath.Text, "\\", lblSITName.Text, ".zip`"));
 
 			Console.WriteLine (zipFilename);
@@ -337,23 +333,11 @@ namespace ROMVault2
 				ZipFile.ExtractToDirectory (zipFilename, CWDTMP);
 			} catch (Exception ex) {
 
+				doLog("Unzip fail");
 				Console.WriteLine (ex.StackTrace);
 				return false;
 			}
-
-            //doLog(string.Concat(" - - unzip -qq -o \"",zipFilename,"\" -d \"..\\_tmp\""));
-            //try
-            //{
-             //   RunEXE(CWD, tool, toolArgs, 1, debugMode);
-                return true;
-            //}
-
-            //catch
-            //{
-            //    doLog(string.Concat(" - - Aborting - An error has occurred while trying to unzip `",zipFilename,"`"));
-            //    return false;
-            //}
-            
+			                  
             return true;
 
         }
@@ -452,6 +436,147 @@ namespace ROMVault2
             }
         }
 
+		private bool romGen(string binFile, string memFile, string str_addr_bits)
+		{
+
+			const int MAX_ROM_SIZE = 0x4000;
+			string hexOutput;
+			int i,j;
+
+			int rom_inits;
+
+
+			int number_of_block_rams =1;
+			int block_ram_width = 8;
+			int data;
+			int mask,k;
+
+			int addr_bits = int.Parse (str_addr_bits);
+
+			int[] mem = new int[MAX_ROM_SIZE]; 
+
+			Console.WriteLine ("RomGen bin: " + binFile);
+			Console.WriteLine ("Mem File: " + memFile);
+			Console.WriteLine ("Addr bits: " + str_addr_bits);
+
+
+			// open bin file
+			BinaryReader b = new System.IO.BinaryReader(File.Open(binFile, FileMode.Open));
+
+			if ( b.BaseStream.Length > MAX_ROM_SIZE) {
+				// bin file is to big
+				doLog("--ROM size is greater then 4k --");
+				return false;
+			}	
+
+			// read bin file
+			for (int a = 0; a < b.BaseStream.Length; a++) {	
+				mem[a]=  b.ReadByte ();
+			}
+			// create mem file
+			System.IO.StreamWriter outFile = new System.IO.StreamWriter(memFile);
+
+
+			rom_inits = 64;
+
+			// ram16s
+			switch (addr_bits) {
+			case 14:
+				number_of_block_rams = 8;
+				block_ram_width = 1;
+				break;
+			case 13 : 
+				number_of_block_rams = 4;
+				block_ram_width = 2;
+				break;
+			case 12 : 
+				number_of_block_rams = 2;
+				block_ram_width = 4;
+				break;
+			default : break;
+			}
+
+			for (k = 0; k < number_of_block_rams; k++) {
+
+				for (j = 0; j < rom_inits; j++) {
+
+					switch (block_ram_width) {
+
+					case 1: // width 1
+						mask = 0x1 << (k);		  
+
+						for (i = 248; i >= 0; i -= 8) {
+							data = ((mem [(j * 256) + (255 - i)] & mask) >> k);
+							data <<= 1;
+							data += ((mem [(j * 256) + (254 - i)] & mask) >> k);
+							data <<= 1;
+							data += ((mem [(j * 256) + (253 - i)] & mask) >> k);
+							data <<= 1;
+							data += ((mem [(j * 256) + (252 - i)] & mask) >> k);
+							data <<= 1;
+							data += ((mem [(j * 256) + (251 - i)] & mask) >> k);
+							data <<= 1;
+							data += ((mem [(j * 256) + (250 - i)] & mask) >> k);
+							data <<= 1;
+							data += ((mem [(j * 256) + (249 - i)] & mask) >> k);
+							data <<= 1;
+							data += ((mem [(j * 256) + (248 - i)] & mask) >> k);
+
+							hexOutput = String.Format("{0:X2} ", data);
+							outFile.Write(hexOutput);
+						}
+						break;
+
+					case 2: // width 2
+								  
+						mask = 0x3 << (k * 2);
+						//for (i = 0; i < 128; i+=4) {
+						for (i = 124; i >= 0; i -= 4) {
+							data = ((mem [(j * 128) + (127 - i)] & mask) >> k * 2);
+							data <<= 2;
+							data += ((mem [(j * 128) + (126 - i)] & mask) >> k * 2);
+							data <<= 2;
+							data += ((mem [(j * 128) + (125 - i)] & mask) >> k * 2);
+							data <<= 2;
+							data += ((mem [(j * 128) + (124 - i)] & mask) >> k * 2);
+							hexOutput = String.Format("{0:X2} ", data);
+							outFile.Write(hexOutput);
+						}
+						break;
+
+					case 4: // width 4
+								  
+						mask = 0xF << (k * 4);
+						for (i = 0; i < 64; i += 2) {
+							data = ((mem [(j * 64) + (63 - i)] & mask) >> k * 4);
+							data <<= 4;
+							data += ((mem [(j * 64) + (62 - i)] & mask) >> k * 4);
+
+							hexOutput = String.Format("{0:X2} ", data);
+							outFile.Write(hexOutput);
+						}
+						break;
+
+
+					case 8: // width 8
+
+						for (i = 31; i >= 0; i--) {
+							data = ((mem [(j * 32) + (31 - i)]));
+							hexOutput = String.Format("{0:X2} ", data);
+							outFile.Write(hexOutput);
+						}
+						break;
+					} 
+
+				}
+
+			}
+			// close file
+			outFile.Close ();
+			return true;
+		}
+	
+
         private bool parsePScriptROMGEN(string[] cmdArray, bool debugMode)
         {
 			string CWDTMP = string.Concat(Application.StartupPath,  Path.DirectorySeparatorChar + "papilio" + Path.DirectorySeparatorChar +"_tmp" +  Path.DirectorySeparatorChar);
@@ -468,9 +593,15 @@ namespace ROMVault2
             {
                 if (cmdArray.Length == 4 || cmdArray.Length == 5)
                 {
+					
                     if (cmdArray.Length == 5)
                     {
-                        // use -ini: switch to decrypt something! (TODO:: this needs love.. there is no patch sorting at all atm.. put in dir named after dat or something)
+						if(Settings.IsUnix)
+						{	
+							doLog((" - - - - Fail !!! No romgen patch support under linux.... `"));
+							return false;	
+						}
+						// use -ini: switch to decrypt something! (TODO:: this needs love.. there is no patch sorting at all atm.. put in dir named after dat or something)
                         // lstLogs.Items.Add("saving decrypted rg output to " + cmdArray[2] + ".mem");
                         doLog(string.Concat(" - - - ROMGen: `", cmdArray[1], "` -> `", cmdArray[2], ".mem`", " Patch: `", cmdArray[4],"`"));
 						Console.WriteLine(CWDTMP);
@@ -511,35 +642,8 @@ namespace ROMVault2
                     else
                     {
                         // no -ini: switch
-                        doLog(string.Concat(" - - - ROMGen: `", cmdArray[1], "` -> `", cmdArray[2], ".mem`"));
-                        using (StreamWriter outfile = new StreamWriter(string.Concat(CWDTMP, cmdArray[2], ".mem")))
-                        {
-                            if (System.IO.File.Exists(string.Concat(CWDTMP, cmdArray[1])))
-                            {
-                                
-								string ROMGenOutput;
-								if (Settings.IsUnix)
-								{
-									string romgenArgs = string.Concat("\"", CWDTMP, cmdArray[1], "\" ", cmdArray[2], " ", cmdArray[3], " m r e");
-									Console.WriteLine("romgen args");
-									Console.WriteLine(romgenArgs);
-									ROMGenOutput = RunEXE(CWD,  "linux"+ Path.DirectorySeparatorChar+"romgen",romgenArgs , 1, debugMode);
-
-								}
-								else
-								{
-								 ROMGenOutput = RunEXE(CWD, "romgen.exe", string.Concat("\"", CWDTMP, cmdArray[1], "\" ", cmdArray[2], " ", cmdArray[3], " m r e"), 1, debugMode);
-								}
-									//string ROMGenOutput = RunRandomExe(PapilioRootPath + "tools\\", "romgen.exe", "\"" + PapilioRootPath + "_tmp\\" + cmdArray[1] + "\" " + cmdArray[2] + " " + cmdArray[3] + " m r e", 1);
-                                outfile.Write(ROMGenOutput);
-                                return true;
-                            }
-                            else
-                            {
-                                doLog(string.Concat(" - - - - Aborting - `", CWDTMP, cmdArray[1], "` not found"));
-                                return false;
-                            }
-                        }
+					    return romGen(CWDTMP + cmdArray[1], CWDTMP + cmdArray[2] + ".mem", cmdArray[3]);
+                     
                     }
                 }
                 else
@@ -553,8 +657,9 @@ namespace ROMVault2
             catch
             {
                 doLog(" - - Aborting - An error occured processing `romgen` PScript directive");
-                return false;
+                
             }
+			return false;
 
         }
 
@@ -651,13 +756,9 @@ namespace ROMVault2
                 //File.Copy(string.Concat(dlgLoadBitfile.FileName), string.Concat(CWDTMP, dlgLoadBitfile.SafeFileName), true);
                 //clearPapilioBuildDirectory(false);
             }
-            else
-            {
-                return false;
-            }
-
-            // just because..
-            return true;
+          
+            return false;
+            
 
         }
 
@@ -703,7 +804,7 @@ namespace ROMVault2
 					Console.WriteLine(prog_args);
 
 					string papilioprog_output = RunEXE(CWD, tool, prog_args , 1, debugMode);
-
+					lstLogs.Items.Add(papilioprog_output);
                     if (chkSaveGeneratedBitfile.Checked == false)
                     {
                         clearPapilioBuildDirectory(false);
@@ -730,7 +831,9 @@ namespace ROMVault2
 						Console.WriteLine(prog_args);
 
 						string papilioprog_output = RunEXE(CWD, tool, prog_args, 1, debugMode);
-                        doLog(" - - - - Triggering FPGA Reconfiguration");
+						lstLogs.Items.Add(papilioprog_output);
+
+						doLog(" - - - - Triggering FPGA Reconfiguration");
                         papilioprog_output = RunEXE(CWD, tool, " -c", 1, debugMode);
 
                         if (chkSaveGeneratedBitfile.Checked == false)
@@ -748,7 +851,8 @@ namespace ROMVault2
                     {
                         doLog(string.Concat(" - - - - Cannot find: ",bscanFile," Loading to FPGA instead"));
                         string papilioprog_output = RunEXE(CWD, tool, string.Concat(toolArgs, " ", bitfileFilename), 1, debugMode);
-                        return false;
+						lstLogs.Items.Add(papilioprog_output);
+						return false;
                     }
                     
                 }
@@ -770,15 +874,6 @@ namespace ROMVault2
             lstLogs.Items.Clear();
             txtDebug.Clear();
 
-            // hack..
-            if (lblSIYear.Visible == false)
-            {
-                UpdateRomGrid(tGame);
-
-                while (lblSIYear.Visible == false)
-                    System.Threading.Thread.Sleep(50);
-            }
-
             bool debugMode = false;
 
             if (debugMode == true)
@@ -792,7 +887,8 @@ namespace ROMVault2
             // detect papilio fpga type
             if (detectPapilioBoard(debugMode) == false)
             {
-                return;
+				
+				return;
             }
 
             doLog(""); // spacer
@@ -855,12 +951,14 @@ namespace ROMVault2
                         pscriptA = pscriptA.Replace("%romname%",RomGrid.Rows[0].Cells["CRom"].Value.ToString().Trim());
                         break;
 
-                    default:
-                        doLog(string.Concat("--Aborting-- Unrecognized AutoDetect Parameter `", autodetectHardware.ToUpper(), "`"));
-                        break;
+				default:
+					doLog (string.Concat ("--Aborting-- Unrecognized AutoDetect Parameter `", autodetectHardware.ToUpper (), "`"));
+					return;
+                    break;
+					    
                 }
 
-                //return;
+               
 
             }
             else
@@ -879,8 +977,7 @@ namespace ROMVault2
 
             doLog(""); // spacer
 
-            //string[] pscript = tGame.Game.GetData(RvGame.GameData.papilioScript).Trim().Split('\n');
-
+      
             string[] pscript = pscriptA.Trim().Split('\n');
 
             int i = 0;
@@ -948,7 +1045,7 @@ namespace ROMVault2
                 progressLoadFPGA.Value = i;
                 progressLoadFPGA.Refresh();
                 doLog(""); // spacer
-                Application.DoEvents();
+                
             }
 
         }

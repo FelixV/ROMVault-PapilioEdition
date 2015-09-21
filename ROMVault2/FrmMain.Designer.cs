@@ -223,7 +223,7 @@
             // 
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.ImageLocation = "C:\\Users\\Felix\\Downloads\\mame\\RV_PE Logo L.png";
+            //this.pictureBox1.ImageLocation = "C:\\Users\\Felix\\Downloads\\mame\\RV_PE Logo L.png";
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(80, 742);
