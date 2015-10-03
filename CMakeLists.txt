@@ -1,6 +1,6 @@
 cmake_minimum_required (VERSION 2.8)
 
-SET(CMAKE_INSTALL_PREFIX "$ENV{HOME}")
+SET(CMAKE_INSTALL_PREFIX $ENV{HOME})
 
 project (Tools)
 find_package(PkgConfig)
