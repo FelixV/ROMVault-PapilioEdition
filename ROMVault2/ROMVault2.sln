@@ -20,4 +20,14 @@ Global
 		{437E12AB-46F3-4A75-A3D5-6C524B5A79B5}.Release|x86.ActiveCfg = Release|x86
 		{437E12AB-46F3-4A75-A3D5-6C524B5A79B5}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		Policies = $0
+		$0.DotNetNamingPolicy = $1
+		$1.DirectoryNamespaceAssociation = None
+		$1.ResourceNamePolicy = FileFormatDefault
+		$0.StandardHeader = $2
+		$2.Text = 
+		$2.IncludeInNewFiles = True
+		outputpath = Stage
+	EndGlobalSection
 EndGlobal

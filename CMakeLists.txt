@@ -1,6 +1,6 @@
 cmake_minimum_required (VERSION 2.8)
 
-SET(CMAKE_INSTALL_PREFIX "$ENV{HOME}")
+SET(CMAKE_INSTALL_PREFIX $ENV{HOME})
 
 project (Tools)
 find_package(PkgConfig)
@@ -8,7 +8,7 @@ find_package(PkgConfig)
 pkg_check_modules(libftdi REQUIRED libftdi>=0.19)
 include(CheckIncludeFiles)
 add_subdirectory(papilio_prog)
-add_subdirectory(romgen)
+
 
 add_custom_target( ROMVault2 ALL
                    COMMAND ${CMAKE_SOURCE_DIR}/ROMVault2/build.sh

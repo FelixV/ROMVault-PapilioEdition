@@ -19,11 +19,12 @@ Building on Ubuntu 14.04 (and most likely other debian based distro's)
   Install cmake and libftdi-dev
    sudo apt-get install cmake libftdi-dev
 
-  Build romgen, papilio_prog and ROMVault
+  Build papilio_prog and ROMVault
    mkdir build
    cd build
    cmake ../
    make
+   make install  ( we install by default in the linux home directory. avoid path and permission issues)
    
 
 TODO
@@ -31,5 +32,5 @@ TODO
  test building/running on windows after linux compatibility mods
  add the left side image to the UI again (got lost!)
  code cleanups
- port romgen3.01 to linux to enable linux version to support pacman variants (superglob, pacman plus, etc) (or just integrate romgen style functionality into the C# code)
+ 
  finish mapping/renaming images or come up with a better way to display screenshots
