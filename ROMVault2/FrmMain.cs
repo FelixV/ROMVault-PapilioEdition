@@ -143,6 +143,9 @@ namespace ROMVault2
             splitContainer3_Panel1_Resize(new object(), new EventArgs());
             splitContainer4_Panel1_Resize(new object(), new EventArgs());
 
+			GameGrid.ReadOnly = true;
+			GameGrid.MultiSelect = false;
+			GameGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
 
 		}
@@ -434,29 +437,32 @@ namespace ROMVault2
 
 
             // display loader form
-            if (dlgLoadBitfile.ShowDialog() == DialogResult.OK)
-            {
-				string CWDTMP = string.Concat(Application.StartupPath, Path.DirectorySeparatorChar + "papilio" + Path.DirectorySeparatorChar + "_tmp" + Path.DirectorySeparatorChar);
-                if(System.IO.File.Exists(dlgLoadBitfile.FileName))
-                {
-                    // bitfile found so lets clear tmp directory
-                    clearPapilioBuildDirectory(false);
-                    // make a copy
-                    File.Copy(string.Concat(dlgLoadBitfile.FileName), string.Concat(CWDTMP, dlgLoadBitfile.SafeFileName), true);
-                } else {
+			if (dlgLoadBitfile.ShowDialog () == DialogResult.OK) {
+				string CWDTMP = string.Concat (Application.StartupPath, Path.DirectorySeparatorChar + "papilio" + Path.DirectorySeparatorChar + "_tmp" + Path.DirectorySeparatorChar);
+				if (System.IO.File.Exists (dlgLoadBitfile.FileName)) {
+					// bitfile found so lets clear tmp directory
+					clearPapilioBuildDirectory (false);
+					// make a copy
+					File.Copy (string.Concat (dlgLoadBitfile.FileName), string.Concat (CWDTMP, dlgLoadBitfile.SafeFileName), true);
+				} else {
                     
-                    //MessageBox.Show("Operation Cancelled by User");
+					//MessageBox.Show("Operation Cancelled by User");
                     
-                    GameGrid.Enabled = true;
-                    btnLoadGame.Enabled = true;
+					GameGrid.Enabled = true;
+					btnLoadGame.Enabled = true;
 
-                    cmbProgramTarget.Enabled = true;
+					cmbProgramTarget.Enabled = true;
 
-                    return;
-                }
+					return;
+				}
 
-            }
+			} else {
 
+				GameGrid.Enabled = true;
+				btnLoadGame.Enabled = true;
+				cmbProgramTarget.Enabled = true;
+				return;
+			}
             // detect papilio fpga type
             if (detectPapilioBoard(false) == false)
             {
