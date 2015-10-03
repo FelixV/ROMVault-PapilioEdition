@@ -8,7 +8,7 @@ find_package(PkgConfig)
 pkg_check_modules(libftdi REQUIRED libftdi>=0.19)
 include(CheckIncludeFiles)
 add_subdirectory(papilio_prog)
-add_subdirectory(romgen)
+
 
 add_custom_target( ROMVault2 ALL
                    COMMAND ${CMAKE_SOURCE_DIR}/ROMVault2/build.sh
