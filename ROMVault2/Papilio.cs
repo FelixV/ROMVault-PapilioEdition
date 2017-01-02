@@ -1,4 +1,4 @@
-﻿/******************************************************
+/******************************************************
  *     ROMVault2 is written by Gordon J.              *
  *     Contact gordon@ROMVault.com                    *
  *     Copyright 2010                                 *
@@ -804,7 +804,7 @@ namespace ROMVault2
 
 						// " -v -f", bitfileFilename, " -b \"", bscanFile, "\" -sa  -r";
 
-						string prog_args = string.Concat (" -v -f", bitfileFilename, " -b \"", bscanFile, "\" -sa  -r");
+						string prog_args = string.Concat (" -v -f ", bitfileFilename, " -b \"", bscanFile, "\" -sa  -r");
 						Console.WriteLine ("papilio-prog args");
 						Console.WriteLine (prog_args);
 
