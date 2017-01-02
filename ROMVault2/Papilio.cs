@@ -804,7 +804,7 @@ namespace ROMVault2
 
 						// " -v -f", bitfileFilename, " -b \"", bscanFile, "\" -sa  -r";
 
-						string prog_args = string.Concat (" -v -f ", bitfileFilename, " -b \"", bscanFile, "\" -sa  -r");
+						string prog_args = string.Concat (" -v -f \"", bitfileFilename, "\" -b \"", bscanFile, "\" -sa  -r");
 						Console.WriteLine ("papilio-prog args");
 						Console.WriteLine (prog_args);
 
